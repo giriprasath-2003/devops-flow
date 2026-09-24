@@ -17,7 +17,7 @@ pipeline {
             steps {
                 git branch: 'main',
                     credentialsId: 'git-creds',
-                    url: 'https://github.com/giriprasath-2003/frontend-1.git'
+                    url: 'https://github.com/giriprasath-2003/devops-flow.git'
             }
          }
   
