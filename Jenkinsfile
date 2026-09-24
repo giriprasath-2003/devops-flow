@@ -17,7 +17,7 @@ pipeline {
             steps {
                 git branch: 'main',
                     credentialsId: 'git-creds',
-                    url: 'https://github.com/giriprasath-2003/frontend-1.git'
+                    url: 'https://github.com/giriprasath-2003/devops-flow.git'
             }
          }
   
@@ -44,7 +44,13 @@ pipeline {
              }
          }
       }  
-  
+          stage('Quality Gate') {
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: false
+                }
+            }
+        }
           stage('build') {
               steps {
                   sh 'npm run build'
