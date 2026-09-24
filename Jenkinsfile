@@ -63,7 +63,8 @@ pipeline {
                   aws s3 sync frontend/dist/ \
                   s3://${S3_BUCKET}/ \
                   --delete \
-                  --region ${AWS_REGION}
+                  --region 
+                  --region us-east
                   '''
                   echo 'Frontend Uploaded Successfully'
        }      
