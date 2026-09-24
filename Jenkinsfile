@@ -17,7 +17,7 @@ pipeline {
             steps {
                 git branch: 'main',
                     credentialsId: 'git-creds',
-                    url: 'https://github.com/giriprasath-2003/devops-flow.git'
+                    url: 'https://github.com/giriprasath-2003/frontend-1.git'
             }
          }
   
@@ -25,9 +25,15 @@ pipeline {
               steps { 
                   sh 'npm install'
                 }
-            }   
+            }
+            
+         stage('build') {
+              steps {
+                  sh 'npm run build'
+                }
+             }   
            
-         stage('Sonarqube Analysis') {
+          stage('Sonarqube Analysis') {
             steps {
                 script {
                     def scannerhome = tool name: 'sonarqube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
@@ -43,7 +49,16 @@ pipeline {
                  }
              }
          }
-      }  
-    }
-}
-        
+      }   
+      
+          stage('Quality Gate') {
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: false
+                }
+            }
+        }
+              
+                      
+       }
+   }
