@@ -24,8 +24,7 @@ pipeline {
          stage('Install') {
               steps { 
                   sh '''
-                    ls -la
-                    sh 'npm install'
+                    'npm install'
                   '''
                 }
             }
