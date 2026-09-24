@@ -25,9 +25,15 @@ pipeline {
               steps { 
                   sh 'npm install'
                 }
-            }   
+            }
+            
+         stage('build') {
+              steps {
+                  sh 'npm run build'
+                }
+             }   
            
-         stage('Sonarqube Analysis') {
+          stage('Sonarqube Analysis') {
             steps {
                 script {
                     def scannerhome = tool name: 'sonarqube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
@@ -52,13 +58,6 @@ pipeline {
                 }
             }
         }
-  
-          stage('build') {
-              steps {
-                  sh 'npm run build'
-                }
-             }   
-        
               
                       
        }
