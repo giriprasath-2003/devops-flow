@@ -43,12 +43,16 @@ pipeline {
                  }
              }
          }
-      }     
-   
-  
-         
-        
-              
-                      
-       }
-   }
+      }
+
+          stage('Build Frontend'){
+              steps{
+                  echo 'Bulding React project'
+                  sh '''
+                  cd frontend
+                  npm run build
+                  '''
+         }
+       }                          
+    }
+ }
