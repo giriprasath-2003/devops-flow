@@ -23,17 +23,17 @@ pipeline {
   
          stage('Install') {
               steps { 
-                  sh '''
-                    'npm install'
-                  '''
+                  dir('frontend') {
+                      sh 'npm ci'
                 }
             }
-            
+         }
+        
          stage('build') {
               steps {
-                  sh '''
-                    'npm run build'
-                   '''
+                   dir('frontend') {
+                       sh 'npm run build'
+                   }     
                 }
              }   
            
