@@ -7,8 +7,8 @@ pipeline {
     
      environment {
         AWS_DEFAULT_REGION = 'us-east-1'
-        S3_BUCKET = 'frontend-deploy'
-        CLOUDFRONT_DIST_ID= 'E1B3IFDJXIR74Q'
+        S3_BUCKET = 'frontend-giri'
+        CLOUDFRONT_DIST_ID= 'E16ULL4FANY9XQ'
         AWS_CREDENTIALS= credentials('aws-id')
         }
     
