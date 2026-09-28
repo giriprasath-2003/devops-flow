@@ -7,8 +7,9 @@ pipeline {
     
      environment {
         AWS_DEFAULT_REGION = 'us-east-1'
- 
-        S3_BUCKET = 'frontend'
+        S3_BUCKET = 'frontend-giri'
+        CLOUDFRONT_DIST_ID= 'E16ULL4FANY9XQ'
+        AWS_CREDENTIALS= credentials('aws-id')
         }
     
     stages {
@@ -23,13 +24,24 @@ pipeline {
   
          stage('Install') {
               steps { 
-                  sh 'npm install'
+                  dir('frontend') {
+                      sh 'npm ci'
                 }
             }
+<<<<<<< HEAD
             
          stage('build') {
               steps {
                   sh 'npm run build'
+=======
+         }
+        
+         stage('build') {
+              steps {
+                   dir('frontend') {
+                       sh 'npm run build'
+                   }     
+>>>>>>> 6c6264399fc6881e908e82355cb6dbd8836e9773
                 }
              }   
            
@@ -51,6 +63,7 @@ pipeline {
          }
       }   
       
+<<<<<<< HEAD
           stage('Quality Gate') {
             steps {
                 timeout(time: 5, unit: 'MINUTES') {
@@ -62,3 +75,30 @@ pipeline {
                       
        }
    }
+=======
+           stage('Deploy S3 Bucket'){
+              steps{
+                  echo 'updating S3 Bucket'
+                  sh ''' 
+                  aws s3 sync frontend/dist/ \
+                  s3://${S3_BUCKET}/ \
+                  --delete \
+                  --region us-east-1
+                  '''
+                  echo 'Frontend Uploaded Successfully'
+       }      
+     }
+        stage('Cloudfront Deployment'){
+            steps{
+                echo 'Deploying...'
+                sh ''' 
+                  aws cloudfront create-invalidation \
+                  --distribution-id ${CLOUDFRONT_DIST_ID} \
+                  --paths "/*"
+                  '''
+  
+        }
+     }
+  }
+} 
+>>>>>>> 6c6264399fc6881e908e82355cb6dbd8836e9773
