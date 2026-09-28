@@ -28,12 +28,12 @@ pipeline {
                       sh 'npm ci'
                 }
             }
-<<<<<<< HEAD
+
             
          stage('build') {
               steps {
                   sh 'npm run build'
-=======
+
          }
         
          stage('build') {
@@ -41,7 +41,7 @@ pipeline {
                    dir('frontend') {
                        sh 'npm run build'
                    }     
->>>>>>> 6c6264399fc6881e908e82355cb6dbd8836e9773
+
                 }
              }   
            
@@ -63,7 +63,7 @@ pipeline {
          }
       }   
       
-<<<<<<< HEAD
+
           stage('Quality Gate') {
             steps {
                 timeout(time: 5, unit: 'MINUTES') {
@@ -75,7 +75,7 @@ pipeline {
                       
        }
    }
-=======
+
            stage('Deploy S3 Bucket'){
               steps{
                   echo 'updating S3 Bucket'
@@ -101,4 +101,4 @@ pipeline {
      }
   }
 } 
->>>>>>> 6c6264399fc6881e908e82355cb6dbd8836e9773
+
