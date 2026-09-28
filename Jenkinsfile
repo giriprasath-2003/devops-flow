@@ -18,7 +18,7 @@ pipeline {
             steps {
                 git branch: 'main',
                     credentialsId: 'git-creds',
-                    url: 'https://github.com/giriprasath-2003/devops-flow.git'
+                    url: 'https://github.com/giriprasath-2003/frontend-1.git'
             }
          }
   
@@ -28,12 +28,6 @@ pipeline {
                       sh 'npm ci'
                 }
             }
-
-            
-         stage('build') {
-              steps {
-                  sh 'npm run build'
-
          }
         
          stage('build') {
@@ -41,7 +35,6 @@ pipeline {
                    dir('frontend') {
                        sh 'npm run build'
                    }     
-
                 }
              }   
            
@@ -63,19 +56,6 @@ pipeline {
          }
       }   
       
-
-          stage('Quality Gate') {
-            steps {
-                timeout(time: 5, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: false
-                }
-            }
-        }
-              
-                      
-       }
-   }
-
            stage('Deploy S3 Bucket'){
               steps{
                   echo 'updating S3 Bucket'
@@ -101,4 +81,3 @@ pipeline {
      }
   }
 } 
-
