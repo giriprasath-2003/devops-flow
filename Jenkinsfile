@@ -55,13 +55,14 @@ pipeline {
              }
          }
       }   
-          stage('Quality Gate') {
+           stage('Quality Gate') {
             steps {
                 timeout(time: 5, unit: 'MINUTES') {
                     waitForQualityGate( abortPipeline: true, credentialsId: 'sonar-token')
                 }
             }
-        } 
+        }
+      
            stage('Deploy S3 Bucket'){
               steps{
                   echo 'updating S3 Bucket'
@@ -87,3 +88,11 @@ pipeline {
      }
   }
 } 
+       stage('Build Docker Images'){
+           steps{
+               echo "Building Images"
+               sh '''
+               docker compose up -d
+               '''
+     }
+   }  
