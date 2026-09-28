@@ -79,8 +79,7 @@ pipeline {
   
         }
      }
-  }
-} 
+  
        stage('Build Docker Images'){
            steps{
                echo "Building Images"
@@ -89,3 +88,6 @@ pipeline {
                '''
      }
    }  
+ }
+}
+    
