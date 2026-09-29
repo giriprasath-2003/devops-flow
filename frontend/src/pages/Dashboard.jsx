@@ -74,7 +74,7 @@ export default function Dashboard() {
         </thead>
 
         <tbody>
-          {tasks.map((task) => (
+          {(Array.isArray(tasks) ? tasks : []).map((task) => (
             <tr key={task._id}>
               <td>{task.title}</td>
               <td>{task.assignedTo}</td>
