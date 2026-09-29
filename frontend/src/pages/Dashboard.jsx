@@ -13,7 +13,7 @@ export default function Dashboard() {
   const fetchTasks = async () => {
     try {
       const res = await api.get("/api/tasks/all");
-      setTasks(res.data.tasks);
+      setTasks(res.data?.tasks || res.data || []);
     } catch (err) {
       console.log(err.response?.data || err.message);
     }
